@@ -19,15 +19,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,13 +47,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.asteriatech.androidcryptex.R
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
@@ -56,19 +67,22 @@ import java.io.File
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CameraScannerScreen(navController: NavController,viewModel: SharedViewModel) {
+fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel) {
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     var previewView = remember { PreviewView(context) }
     val imageCapture = remember { ImageCapture.Builder().build() }
-    var decodedText by rememberSaveable {
-        mutableStateOf("")
-    }
+    val decodedText = viewModel.decodedText
     var shouldShowText by remember {
         mutableStateOf(false)
     }
+    var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    var isEncryptionEnabled by remember { mutableStateOf(false) }
+    var isDecryptionEnabled by remember { mutableStateOf(true) }
 
 
     LaunchedEffect(Unit) {
@@ -116,21 +130,96 @@ fun CameraScannerScreen(navController: NavController,viewModel: SharedViewModel)
                         context = context,
                         imageCapture = imageCapture,
                         onDecoded = {
-                            decodedText = it
-                            shouldShowText = true
+                            viewModel.setPasswordValue(password)
+                            if(isDecryptionEnabled) viewModel.decrypt(it)
+                            else viewModel.encrypt(it)
+                            navController.navigate(Screen.ScannerResultScreen.route)
                         }
                     )
                 },
-                modifier = Modifier.align(Alignment.BottomCenter).padding(20.dp)
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(20.dp)
 
-                )
+            )
 
 
             {
-                Text("Şifreyi Çöz")
+                Text("Operate")
             }
 
         }
+
+
+        Column(modifier = Modifier.fillMaxSize().align(Alignment.TopCenter)) {
+            Text(
+                text = "Select the operation you want to do",
+                fontSize = 20.sp,
+                modifier = Modifier.padding(10.dp),
+                color = Color.White
+            )
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Checkbox(
+
+                    checked = isEncryptionEnabled,
+                    onCheckedChange = {
+                        isEncryptionEnabled = it
+                        isDecryptionEnabled = !it
+
+                    },
+                )
+
+                Text(text = "Encryption", fontSize = 20.sp,color = Color.White)
+
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Checkbox(
+                    checked = isDecryptionEnabled,
+                    onCheckedChange = {
+                        isDecryptionEnabled = it
+                        isEncryptionEnabled = !it
+                    }
+                )
+
+                Text(text = "Decryption", fontSize = 20.sp,color = Color.White)
+
+            }
+
+            TextField(
+                value = password,
+                onValueChange = { password = it },
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .align(Alignment.CenterHorizontally),
+                placeholder = { Text(text = "Type a password (optional)...") },
+                visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                        val icon: Int = if(passwordVisible) R.drawable.visibility_eye_icon else R.drawable.visibility_off_eye_icon
+                        Icon(painter = painterResource(id = icon), contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                    }
+                },
+                colors = TextFieldDefaults.colors(
+                    unfocusedContainerColor = Color.Transparent,
+                    focusedContainerColor = Color.Transparent,
+                    focusedTextColor = Color.White,
+                    unfocusedTextColor = Color.White,
+                    focusedSupportingTextColor = Color.White,
+                    focusedPlaceholderColor = Color.White,
+                    unfocusedPlaceholderColor = Color.White
+
+                )
+            )
+        }
+
 
     }
 
@@ -148,27 +237,30 @@ private fun startCamera(
     cameraProviderFuture.addListener({
         val cameraProvider = cameraProviderFuture.get()
         val preview = Preview.Builder().build()
+        val imageAnalysis = ImageAnalysis.Builder().build()
         val cameraSelector = androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 
         preview.setSurfaceProvider(previewView.surfaceProvider)
-
-        //imageCapture = ImageCapture.Builder().build()
-
-        val imageAnalysis = ImageAnalysis.Builder().build()
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(context)) { imageProxy ->
             processImageProxy(imageProxy)
         }
 
-        cameraProvider.bindToLifecycle(
-            lifecycleOwner,
-            cameraSelector,
-            preview,
-            imageCapture,
-            imageAnalysis
-        )
+        // Önceden bağlı olan tüm kullanım senaryolarını kaldırır
+        cameraProvider.unbindAll()
+
+        try {
+            cameraProvider.bindToLifecycle(
+                lifecycleOwner,
+                cameraSelector,
+                preview,
+                imageCapture,
+                imageAnalysis
+            )
+        } catch (exc: Exception) {
+            Log.e("CameraX", "Binding failed", exc)
+        }
     }, ContextCompat.getMainExecutor(context))
 }
-
 private fun processImageProxy(imageProxy: ImageProxy) {
     // Process image here
     imageProxy.close()

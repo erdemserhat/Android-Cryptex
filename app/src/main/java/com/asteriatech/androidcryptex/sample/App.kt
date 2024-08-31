@@ -2,6 +2,7 @@ package com.asteriatech.androidcryptex.sample
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import com.asteriatech.androidcryptex.R
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
@@ -20,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -56,6 +58,10 @@ fun MyApp() {
 
             composable(Screen.ScannerResultScreen.route) {
                 ScannerResultScreen(navController = navController, viewModel = sharedViewModel)
+                LaunchedEffect(Unit) {
+                    topBarTitle ="Operation Result"
+                }
+              
             }
             composable(Screen.EncryptionScreen.route) {
                 EncryptionScreen(navController = navController, viewModel = sharedViewModel)
@@ -70,8 +76,8 @@ fun BottomNavBar(navController: NavController,onScreenChange:(String)->Unit) {
 
     NavigationBar {
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.Lock, contentDescription = "Camera Scanner") },
-            label = { Text("Camera Scanner") },
+            icon = { Icon(painter = painterResource(id = R.drawable.camera), contentDescription = "Camera Scanner") },
+            //label = { Text("Camera Scanner") },
             selected = currentRoute == Screen.CameraScannerScreen.route,
             onClick = {
                 navController.navigate(Screen.CameraScannerScreen.route) {
@@ -83,22 +89,23 @@ fun BottomNavBar(navController: NavController,onScreenChange:(String)->Unit) {
             }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.Add, contentDescription = "Scanner Result") },
-            label = { Text("Scanner Result") },
+
+            icon = { Icon(painter = painterResource(id = R.drawable.result), contentDescription = "Scanner Result") },
+           // label = { Text("Scanner Result") },
             selected = currentRoute == Screen.ScannerResultScreen.route,
             onClick = {
                 navController.navigate(Screen.ScannerResultScreen.route) {
                     // Avoid multiple copies of the same destination
                     launchSingleTop = true
                     restoreState = true
-                    onScreenChange("Result")
+                    onScreenChange("Operation Result")
                 }
             }
         )
 
         NavigationBarItem(
-            icon = { Icon(Icons.Filled.Home, contentDescription = "Encrypt/Decrypt") },
-            label = { Text("Encrypt/Decrypt") },
+            icon = { Icon(painter = painterResource(id = R.drawable.typing), contentDescription = "Encrypt/Decrypt") },
+            //label = { Text("Encrypt/Decrypt") },
             selected = currentRoute == Screen.EncryptionScreen.route,
             onClick = {
                 navController.navigate(Screen.EncryptionScreen.route) {

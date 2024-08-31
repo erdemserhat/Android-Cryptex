@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Başlangıç Teması -->
+    <style name="Theme.AndroidCryptex.Starting" parent="Theme.SplashScreen">
+        <!-- Splash Screen sırasında kullanılacak olan arka plan -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <!-- Splash Screen sırasında kullanılacak olan logo -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/key</item>
+        <!-- Splash Screen sırasında kullanılacak olan logo arka plan rengi -->
+        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
+        <!-- Splash Screen sonrası geçilecek tema -->
+        <item name="postSplashScreenTheme">@style/Theme.AndroidCryptex</item>
+    </style>
+
+    <!-- Uygulamanın Ana Teması -->
     <style name="Theme.AndroidCryptex" parent="android:Theme.Material.Light.NoActionBar" />
+
 </resources>

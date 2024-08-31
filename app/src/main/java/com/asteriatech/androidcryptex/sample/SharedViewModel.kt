@@ -8,23 +8,26 @@ import androidx.lifecycle.ViewModel
 
 class SharedViewModel : ViewModel() {
     var decodedText by mutableStateOf("")
-    val password by mutableStateOf("")
-    val dataToEncryptorDecrypt = "Sensitive Data"
+    var password by mutableStateOf("")
 
     fun setMessage(newMessage: String) {
         decodedText = newMessage
     }
 
-    fun getMessage(): String {
-        //decryptdecodedtext(decodedText)
-        return decodedText
-
+    fun setPasswordValue(newPassword: String) {
+        password = newPassword
     }
 
 
+    fun encrypt(encryptionData: String) {
+        decodedText=CryptoUtils.encrypt(encryptionData, password)
 
+    }
 
+    fun decrypt(decryptionData: String) {
+        decodedText= CryptoUtils.decrypt(decryptionData, password)
 
+    }
 
 
 }
