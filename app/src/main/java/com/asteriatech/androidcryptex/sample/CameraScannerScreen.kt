@@ -287,11 +287,11 @@ private fun captureImage(
         ContextCompat.getMainExecutor(context),
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                Toast.makeText(
-                    context,
-                    "Image saved: ${photoFile.absolutePath}",
-                    Toast.LENGTH_SHORT
-                ).show()
+               // Toast.makeText(
+                   // context,
+                   // "Image saved: ${photoFile.absolutePath}",
+                  //  Toast.LENGTH_SHORT
+              //  ).show()
                 recognizeTextFromImage(photoFile, context, onDecoded)
             }
 
