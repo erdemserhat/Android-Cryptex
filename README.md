@@ -5,9 +5,9 @@ Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlaya
 ## Özellikler
 
 - **Kameradan Metin Okuma:** Google ML Kit entegrasyonu ile kameranızı kullanarak metinleri tanıyabilir ve şifreleyebilirsiniz.
-- - **Paylaşım:** Şifrelenmiş metni doğrudan uygulama üzerinden paylaşma imkanı.
+- **Güvenli Şifreleme:** Metinleriniz sizin belirlediğiniz anahtar değere göre benzersiz olarak şifrelenir.
+- **Paylaşım:** Şifrelenmiş metni doğrudan uygulama üzerinden paylaşma imkanı.
 - **Kolay Kullanım:** Şifreleme ve çözme işlemleri için basit ve kullanıcı dostu bir arayüz.
-- **Güvenli Şifreleme:** AES/GCM gibi güçlü şifreleme algoritmaları ile metinlerinizi korur.
 - **Kopyalama ve Yapıştırma:** Şifrelenmiş veya şifresi çözülmüş metni kolayca kopyalayıp diğer uygulamalara yapıştırabilirsiniz.
 - **Yerel Depolama Yok:** Verilerinizin güvenliği için hiçbir metin yerel olarak saklanmaz.
 - - **Dil Desteği:** Türkçe ve İngilizce dillerinde kullanılabilir.
