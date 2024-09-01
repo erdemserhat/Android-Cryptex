@@ -61,7 +61,7 @@ Encryptext, Kotlin programlama dili ve Jetpack Compose kullanılarak geliştiril
 - **Dil:** Kotlin
 - **UI:** Jetpack Compose
 - **Mimari:** MVVM
-- **Şifreleme:** AES/GCM algoritması
+- **Şifreleme:** Shifting
 - **Metin Tanıma:** Google ML Kit
 
 ## Katkıda Bulunma
