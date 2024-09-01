@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">Android Cryptex</string>
+
+
+    <string name="app_name" translatable="false">Encryptext</string>
+    <string name="camera_scanner">Camera Scanner</string>
+    <string name="encryption">Encrypt</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="password_placeholder">Type a password (optional)…</string>
+    <string name="operate">Operate</string>
+    <string name="operation_result">Operation Result</string>
+    <string name="no_result">There is no result yet…</string>
+    <string name="type_here">Select your operation and type here…</string>
+    <string name="encrypt_decrypt">Encrypt / Decrypt</string>
+    <string name="operation_placeholder">Select the operation you want to do</string>
+    <string name="copy_text">Copy Text</string>
+    <string name="copy_text_info">Text copied to clipboard.</string>
+
 </resources>
