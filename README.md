@@ -28,17 +28,17 @@ Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlaya
 ## Kullanım
 
 1. **Manuel Metin Şifreleme:**
-   - Uygulamanın ana ekranında şifrelemek istediğiniz metni girin.
+   - Uygulamanın ana ekranında şifrelemek istediğiniz metni girin, isterseniz girdiğiniz metin için özel bir anahtar değer belirleyebilirsiniz şifreyi çözmek için hem uygulama hemde anahtar değer gerekli olur.
    - "Şifrele" butonuna basın.
    - Şifrelenmiş metni kopyalayabilir veya paylaşabilirsiniz.
 
 2. **Manuel Şifre Çözme:**
-   - Şifresi çözülmesi gereken metni uygulamanın ana ekranına yapıştırın.
+   - Şifresi çözülmesi gereken metni uygulamanın ana ekranına yapıştırın ve eğer varsa anahtar değeri girin.
    - "Çöz" butonuna basın.
    - Şifresi çözülmüş metni görüntüleyebilir ve kopyalayabilirsiniz.
 
 3. **Kameradan Metin Okuma ve Şifreleme:**
-   - Uygulama içinde kamera butonuna basarak metin tanıma moduna geçin.
+   - Uygulama içinde kamera butonuna basarak metin tanıma moduna geçin eğer varsa kullanmak istediğiniz anahtar değeri girin.
    - Kameranızı şifrelemek istediğiniz metne yönlendirin ve metin tanıdığında "Şifrele" butonuna basın.
    - Şifrelenmiş metni kopyalayabilir veya paylaşabilirsiniz.
 
