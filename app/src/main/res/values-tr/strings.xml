@@ -1,0 +1,15 @@
+<resources>
+    <string name="camera_scanner">Kameradan Tara</string>
+    <string name="encryption">Şifrele</string>
+    <string name="decrypt">Şifreyi Çöz</string>
+    <string name="password_placeholder">Şifre giriniz (opsiyonel)…</string>
+    <string name="operate">İşlemi Gerçekleştir</string>
+    <string name="operation_result">İşlem Sonucu</string>
+    <string name="no_result">Henüz bir sonuç oluşturulmadı…</string>
+    <string name="type_here">İşleminizi seçtikten sonra metini buraya yazabililirsiniz.</string>
+    <string name="encrypt_decrypt">Şifrele / Şifreyi Çöz</string>
+    <string name="operation_placeholder">Yapmak istediğiniz işlemi seçiniz.</string>
+    <string name="copy_text">Kopyala</string>
+    <string name="copy_text_info">Metin Panoya Kopyalandı.</string>
+
+</resources>
