@@ -1,18 +1,17 @@
 # Encryptext: Metin Şifreleyici
 
-Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlayan, Türkçe ve İngilizce dil desteğine sahip, modern bir Android uygulamasıdır. Google ML Kit entegrasyonu sayesinde, kameranız aracılığıyla metin okuma ve şifreleme veya şifre çözme işlemlerini gerçekleştirebilirsiniz.
+Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlayan, Türkçe ve İngilizce dil desteğine sahip, modern bir Android uygulamadır. Google ML Kit entegrasyonu sayesinde, kameranız aracılığıyla metin okuma ve şifreleme veya şifre çözme işlemlerini gerçekleştirebilirsiniz.
 
 
 [![psico](https://github.com/user-attachments/assets/701a02fc-2daa-4a81-b911-2009b0cd08a7)](https://play.google.com/store/apps/details?id=com.asteriatech.androidcryptex)
 
-
-
+(Uygulama tahminen 07.09.2024 tarihinde Play Store'da erişilebilir olacaktır.)
 
 
 ## Özellikler
 
-- **Kameradan Metin Okuma:** Google ML Kit entegrasyonu ile kameranızı kullanarak metinleri tanıyabilir ve şifreleyebilirsiniz.
-- **Güvenli Şifreleme:** Metinleriniz sizin belirlediğiniz anahtar değere göre benzersiz olarak şifrelenir.
+- **Kameradan Metin Okuma:** Google ML Kit entegrasyonu ile kameranızı kullanarak metinleri şifreleyebilir & deşifre edebilirsiniz.
+- **Güvenli Şifreleme:** Metinleriniz sizin belirlediğiniz anahtar değere göre benzersiz olarak şifrelenir, bu uygulamaya sahip herkesin metninizi deşifre etmesini engeller.
 - **Paylaşım:** Şifrelenmiş metni doğrudan uygulama üzerinden paylaşma imkanı.
 - **Kolay Kullanım:** Şifreleme ve çözme işlemleri için basit ve kullanıcı dostu bir arayüz.
 - **Kopyalama ve Yapıştırma:** Şifrelenmiş veya şifresi çözülmüş metni kolayca kopyalayıp diğer uygulamalara yapıştırabilirsiniz.
@@ -28,7 +27,7 @@ Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlaya
 
 ## Kurulum
 
-1. Uygulamayı [Google Play Store](#) üzerinden indirin.
+1. Uygulamayı [Google Play Store](https://play.google.com/store/apps/details?id=com.asteriatech.androidcryptex) üzerinden veya [Doğrudan APK](https://drive.google.com/file/d/1jn7Fz2jAHXPG7JlySVjEtEx3ZP9HB6SM/view?usp=drive_link) dosyasını indirin.
 2. Uygulamayı açın ve şifrelemek veya çözmek istediğiniz metni manuel olarak girin veya kameranız aracılığıyla tanıtın.
 3. "Şifrele" butonuna basarak metni şifreleyin veya "Çöz" butonuna basarak şifresi çözülmüş metni görüntüleyin.
 
