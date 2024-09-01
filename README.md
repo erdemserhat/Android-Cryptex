@@ -10,7 +10,7 @@ Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlaya
 - **Kolay Kullanım:** Şifreleme ve çözme işlemleri için basit ve kullanıcı dostu bir arayüz.
 - **Kopyalama ve Yapıştırma:** Şifrelenmiş veya şifresi çözülmüş metni kolayca kopyalayıp diğer uygulamalara yapıştırabilirsiniz.
 - **Yerel Depolama Yok:** Verilerinizin güvenliği için hiçbir metin yerel olarak saklanmaz.
-- - **Dil Desteği:** Türkçe ve İngilizce dillerinde kullanılabilir.
+- **Dil Desteği:** Türkçe ve İngilizce dillerinde kullanılabilir.
 
 
 
