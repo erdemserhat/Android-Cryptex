@@ -3,7 +3,8 @@
 Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlayan, Türkçe ve İngilizce dil desteğine sahip, modern bir Android uygulamasıdır. Google ML Kit entegrasyonu sayesinde, kameranız aracılığıyla metin okuma ve şifreleme veya şifre çözme işlemlerini gerçekleştirebilirsiniz.
 
 
-![psico](https://github.com/user-attachments/assets/6c4ff2ca-5497-435c-859a-91f711ed2b65)
+![psico](https://github.com/user-attachments/assets/701a02fc-2daa-4a81-b911-2009b0cd08a7)
+
 
 
 ## Özellikler
