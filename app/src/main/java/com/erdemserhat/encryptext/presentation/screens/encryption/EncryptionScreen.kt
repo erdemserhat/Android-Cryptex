@@ -1,27 +1,10 @@
-package com.erdemserhat.encryptext.sample
+package com.erdemserhat.encryptext.presentation.screens.encryption
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +15,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.res.painterResource
 import com.erdemserhat.encryptext.R
+import com.erdemserhat.encryptext.presentation.app.Screen
+import com.erdemserhat.encryptext.presentation.app.SharedViewModel
 
 @Composable
 fun EncryptionScreen(
@@ -39,39 +24,41 @@ fun EncryptionScreen(
     navController: NavController,
     viewModel: SharedViewModel
 ) {
+    // State variables to manage encryption/decryption mode and user inputs
     var isEncryptionEnabled by remember { mutableStateOf(true) }
     var isDecryptionEnabled by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
+    // Getting the context for accessing string resources
     val context = LocalContext.current
 
-
+    // Main column layout for the screen
     Column(modifier = Modifier.fillMaxSize()) {
+        // Header text
         Text(
             text = context.getString(R.string.operation_placeholder),
             fontSize = 20.sp,
             modifier = Modifier.padding(10.dp)
         )
 
+        // Checkbox for Encryption mode
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Checkbox(
-
                 checked = isEncryptionEnabled,
                 onCheckedChange = {
                     isEncryptionEnabled = it
-                    isDecryptionEnabled = !it
-
+                    isDecryptionEnabled = !it // Toggle the other checkbox
                 },
             )
-
             Text(text = context.getString(R.string.encryption), fontSize = 20.sp)
-
         }
 
+        // Checkbox for Decryption mode
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
@@ -80,14 +67,13 @@ fun EncryptionScreen(
                 checked = isDecryptionEnabled,
                 onCheckedChange = {
                     isDecryptionEnabled = it
-                    isEncryptionEnabled = !it
+                    isEncryptionEnabled = !it // Toggle the other checkbox
                 }
             )
-
             Text(text = context.getString(R.string.decrypt), fontSize = 20.sp)
-
         }
 
+        // Password input field
         TextField(
             value = password,
             onValueChange = { password = it },
@@ -97,27 +83,29 @@ fun EncryptionScreen(
             placeholder = { Text(text = context.getString(R.string.password_placeholder)) },
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
+                // Password visibility toggle icon
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     val icon: Int = if(passwordVisible) R.drawable.visibility_eye_icon else R.drawable.visibility_off_eye_icon
-                    Icon(painter = painterResource(id = icon), contentDescription = if (passwordVisible) "Hide password" else "Show password")
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = if (passwordVisible) "Hide password" else "Show password"
+                    )
                 }
             }
         )
-        
+
+        // Spacer for visual separation
         Spacer(modifier = Modifier.size(20.dp))
 
+        // Column for text input and action button
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(bottom = 20.dp)
                 .align(Alignment.CenterHorizontally)
-                .verticalScroll(
-                    rememberScrollState()
-                ),
-
-
-            ) {
-
+                .verticalScroll(rememberScrollState())
+        ) {
+            // Text input for the text to encrypt/decrypt
             TextField(
                 value = text,
                 onValueChange = { text = it },
@@ -125,29 +113,23 @@ fun EncryptionScreen(
                     .fillMaxWidth(0.9f)
                     .height(250.dp),
                 placeholder = { Text(text = context.getString(R.string.type_here)) }
-
-
             )
 
+            // Button to trigger the encryption/decryption operation
             Button(onClick = {
+                // Set the password value in the view model
                 viewModel.setPasswordValue(password)
-                if (isEncryptionEnabled)
+                // Perform encryption or decryption based on the selected mode
+                if (isEncryptionEnabled) {
                     viewModel.encrypt(text)
-                else
+                } else {
                     viewModel.decrypt(text)
+                }
+                // Navigate to the result screen
                 navController.navigate(Screen.ScannerResultScreen.route)
-
             }) {
                 Text(text = context.getString(R.string.operate))
-
             }
-
-
         }
-
-
     }
-
 }
-
-

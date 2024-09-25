@@ -1,4 +1,4 @@
-package com.erdemserhat.encryptext.sample
+package com.erdemserhat.encryptext.presentation.screens.camera_scanner
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -15,28 +15,9 @@ import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -53,80 +34,94 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.erdemserhat.encryptext.R
+import com.erdemserhat.encryptext.presentation.app.Screen
+import com.erdemserhat.encryptext.presentation.app.SharedViewModel
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.io.File
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel) {
+    // State to store the captured image URI
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+
+    // State to manage camera permission
     var isCameraPermissionGranted by remember { mutableStateOf(false) }
+
+    // Current context and lifecycle owner
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
+
+    // PreviewView to show the camera preview
     var previewView = remember { PreviewView(context) }
+
+    // ImageCapture for taking pictures
     val imageCapture = remember { ImageCapture.Builder().build() }
+
+    // Decoded text from the scanned image
     val decodedText = viewModel.decodedText
-    var shouldShowText by remember {
-        mutableStateOf(false)
-    }
+
+    // State to manage the visibility of the recognized text
+    var shouldShowText by remember { mutableStateOf(false) }
+
+    // State for password input and visibility control
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
 
+    // States to toggle encryption and decryption modes
     var isEncryptionEnabled by remember { mutableStateOf(false) }
     var isDecryptionEnabled by remember { mutableStateOf(true) }
 
-
+    // Effect to handle camera permission and start the camera when the composable is first launched
     LaunchedEffect(Unit) {
+        // Check if camera permission is granted
         isCameraPermissionGranted = ContextCompat.checkSelfPermission(
             context,
             Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
+
+        // If permission is granted, start the camera
         if (isCameraPermissionGranted) {
             startCamera(previewView, imageCapture, context, lifecycleOwner)
         } else {
+            // Request permission and start the camera
             requestCameraPermission(context)
             startCamera(previewView, imageCapture, context, lifecycleOwner)
-
         }
     }
 
-
-
+    // Layout
     Box(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
-
-
     ) {
+        // If text has been decoded, navigate to the result screen
         if (shouldShowText) {
             viewModel.setMessage(decodedText)
             navController.navigate(Screen.ScannerResultScreen.route)
-
-
         } else {
+            // Camera preview
             AndroidView(
                 factory = { context ->
-                    PreviewView(context).also {
-                        previewView = it
-                    }
+                    PreviewView(context).also { previewView = it }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
             )
+
+            // Capture image button
             Button(
                 onClick = {
+                    // Capture image and handle decryption or encryption based on mode
                     captureImage(
                         context = context,
                         imageCapture = imageCapture,
                         onDecoded = {
                             viewModel.setPasswordValue(password)
-                            if(isDecryptionEnabled) viewModel.decrypt(it)
-                            else viewModel.encrypt(it)
+                            if (isDecryptionEnabled) viewModel.decrypt(it) else viewModel.encrypt(it)
                             navController.navigate(Screen.ScannerResultScreen.route)
                         }
                     )
@@ -134,17 +129,12 @@ fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(20.dp)
-
-            )
-
-
-            {
+            ) {
                 Text(context.getString(R.string.operate))
             }
-
         }
 
-
+        // Column for encryption/decryption selection and password input
         Column(modifier = Modifier.fillMaxSize().align(Alignment.TopCenter)) {
             Text(
                 text = context.getString(R.string.operation_placeholder),
@@ -153,24 +143,22 @@ fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel
                 color = Color.White
             )
 
+            // Row for encryption mode toggle
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
                 Checkbox(
-
                     checked = isEncryptionEnabled,
                     onCheckedChange = {
                         isEncryptionEnabled = it
                         isDecryptionEnabled = !it
-
                     },
                 )
-
-                Text(text = context.getString(R.string.encryption), fontSize = 20.sp,color = Color.White)
-
+                Text(text = context.getString(R.string.encryption), fontSize = 20.sp, color = Color.White)
             }
 
+            // Row for decryption mode toggle
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -182,11 +170,10 @@ fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel
                         isEncryptionEnabled = !it
                     }
                 )
-
-                Text(text = context.getString(R.string.decrypt), fontSize = 20.sp,color = Color.White)
-
+                Text(text = context.getString(R.string.decrypt), fontSize = 20.sp, color = Color.White)
             }
 
+            // Password input field
             TextField(
                 value = password,
                 onValueChange = { password = it },
@@ -197,7 +184,7 @@ fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        val icon: Int = if(passwordVisible) R.drawable.visibility_eye_icon else R.drawable.visibility_off_eye_icon
+                        val icon: Int = if (passwordVisible) R.drawable.visibility_eye_icon else R.drawable.visibility_off_eye_icon
                         Icon(painter = painterResource(id = icon), contentDescription = if (passwordVisible) "Hide password" else "Show password")
                     }
                 },
@@ -206,21 +193,15 @@ fun CameraScannerScreen(navController: NavController, viewModel: SharedViewModel
                     focusedContainerColor = Color.Transparent,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
-                    focusedSupportingTextColor = Color.White,
                     focusedPlaceholderColor = Color.White,
                     unfocusedPlaceholderColor = Color.White
-
                 )
             )
         }
-
-
     }
-
-
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Function to start the camera preview
 private fun startCamera(
     previewView: PreviewView,
     imageCapture: ImageCapture,
@@ -239,27 +220,21 @@ private fun startCamera(
             processImageProxy(imageProxy)
         }
 
-        // Önceden bağlı olan tüm kullanım senaryolarını kaldırır
-        cameraProvider.unbindAll()
-
+        cameraProvider.unbindAll() // Remove previously bound use cases
         try {
-            cameraProvider.bindToLifecycle(
-                lifecycleOwner,
-                cameraSelector,
-                preview,
-                imageCapture,
-                imageAnalysis
-            )
+            cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture, imageAnalysis)
         } catch (exc: Exception) {
             Log.e("CameraX", "Binding failed", exc)
         }
     }, ContextCompat.getMainExecutor(context))
 }
+
+// Function to process the captured image proxy
 private fun processImageProxy(imageProxy: ImageProxy) {
-    // Process image here
-    imageProxy.close()
+    imageProxy.close() // Close image after processing
 }
 
+// Request camera permission
 private fun requestCameraPermission(context: Context) {
     ActivityCompat.requestPermissions(
         context as Activity,
@@ -268,6 +243,7 @@ private fun requestCameraPermission(context: Context) {
     )
 }
 
+// Function to capture an image and recognize text from it
 private fun captureImage(
     context: Context,
     imageCapture: ImageCapture,
@@ -281,46 +257,28 @@ private fun captureImage(
         ContextCompat.getMainExecutor(context),
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-               // Toast.makeText(
-                   // context,
-                   // "Image saved: ${photoFile.absolutePath}",
-                  //  Toast.LENGTH_SHORT
-              //  ).show()
-                recognizeTextFromImage(photoFile, context, onDecoded)
+                recognizeTextFromImage(photoFile, context, onDecoded) // Perform text recognition
             }
 
             override fun onError(exception: ImageCaptureException) {
-                Toast.makeText(
-                    context,
-                    "Error capturing image: ${exception.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(context, "Error capturing image: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
         })
 }
 
+// Function to perform text recognition using ML Kit
 private fun recognizeTextFromImage(imageFile: File, context: Context, onDecoded: (String) -> Unit) {
     val image = InputImage.fromFilePath(context, Uri.fromFile(imageFile))
-
-    val options = TextRecognizerOptions.Builder()
-        .build()
-    val recognizer = TextRecognition.getClient(options)
+    val recognizer = TextRecognition.getClient(TextRecognizerOptions.Builder().build())
 
     recognizer.process(image)
-        .addOnSuccessListener { visionText ->
-            processTextBlock(visionText, onDecoded)
-        }
-        .addOnFailureListener { e ->
-            e.printStackTrace()
-        }
+        .addOnSuccessListener { visionText -> processTextBlock(visionText, onDecoded) }
+        .addOnFailureListener { e -> Log.e("MLKit", "Text recognition failed: ${e.message}") }
 }
 
-
-private fun processTextBlock(
-    visionText: com.google.mlkit.vision.text.Text,
-    onDecoded: (String) -> Unit
-) {
-    val resultText = visionText.text
-    Log.d("TextRecognition", "$resultText")
+// Process the recognized text
+private fun processTextBlock(result: com.google.mlkit.vision.text.Text, onDecoded: (String) -> Unit) {
+    val resultText = result.text
+    Log.d("MLKit", "Recognized text: $resultText")
     onDecoded(resultText)
 }
