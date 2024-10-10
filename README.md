@@ -1,83 +1,84 @@
-# Encryptext: Metin Şifreleyici
+Here's the English translation of your text:
 
-Encryptext, metinlerinizi güvenli bir şekilde şifreleyip çözmenizi sağlayan, Türkçe ve İngilizce dil desteğine sahip, modern bir Android uygulamadır. Google ML Kit entegrasyonu sayesinde, kameranız aracılığıyla metin okuma ve şifreleme veya şifre çözme işlemlerini gerçekleştirebilirsiniz.
+---
+
+# Encryptext: Text Encryptor
+
+Encryptext is a modern Android application that allows you to securely encrypt and decrypt your texts, supporting both Turkish and English languages. Thanks to Google ML Kit integration, you can read texts through your camera and perform encryption or decryption operations.
 
 <div align="center">
 
 [![psico](https://github.com/user-attachments/assets/701a02fc-2daa-4a81-b911-2009b0cd08a7)](https://play.google.com/store/apps/details?id=com.asteriatech.androidcryptex)
 
-(Uygulama tahminen 07.09.2024 tarihinde Play Store'da erişilebilir olacaktır.)
+(The app is expected to be available on the Play Store around 09/07/2024.)
 
 </div>
 
-## Özellikler
+## Features
 
-- **Kameradan Metin Okuma:** Google ML Kit entegrasyonu ile kameranızı kullanarak metinleri şifreleyebilir & deşifre edebilirsiniz.
-- **Güvenli Şifreleme:** Metinleriniz sizin belirlediğiniz anahtar değere göre benzersiz olarak şifrelenir, bu uygulamaya sahip herkesin metninizi deşifre etmesini engeller.
-- **Paylaşım:** Şifrelenmiş metni doğrudan uygulama üzerinden paylaşma imkanı.
-- **Kolay Kullanım:** Şifreleme ve çözme işlemleri için basit ve kullanıcı dostu bir arayüz.
-- **Kopyalama ve Yapıştırma:** Şifrelenmiş veya şifresi çözülmüş metni kolayca kopyalayıp diğer uygulamalara yapıştırabilirsiniz.
-- **Yerel Depolama Yok:** Verilerinizin güvenliği için hiçbir metin yerel olarak saklanmaz.
-- **Dil Desteği:** Türkçe ve İngilizce dillerinde kullanılabilir.
+- **Text Reading via Camera:** With Google ML Kit integration, you can encrypt and decrypt texts using your camera.
+- **Secure Encryption:** Your texts are uniquely encrypted according to a key value you set, preventing anyone else with the app from decrypting your text.
+- **Sharing:** Directly share the encrypted text through the app.
+- **Ease of Use:** A simple and user-friendly interface for encryption and decryption operations.
+- **Copy and Paste:** Easily copy and paste the encrypted or decrypted text into other applications.
+- **No Local Storage:** For your security, no texts are stored locally.
+- **Language Support:** Available in Turkish and English.
 
-
-
-## Uygulama Görselleri
+## Application Screenshots
 
 ![ui](https://github.com/user-attachments/assets/73ba28bb-354d-4868-a3e6-19cb160e8933)
 
+## Installation
 
-## Kurulum
+1. Download the app from the [Google Play Store](https://play.google.com/store/apps/details?id=com.asteriatech.androidcryptex) or the [Direct APK](https://drive.google.com/file/d/1jn7Fz2jAHXPG7JlySVjEtEx3ZP9HB6SM/view?usp=drive_link).
+2. Open the app and either manually enter the text you want to encrypt or use your camera to capture it.
+3. Press the "Encrypt" button to encrypt the text or the "Decrypt" button to view the decrypted text.
 
-1. Uygulamayı [Google Play Store](https://play.google.com/store/apps/details?id=com.asteriatech.androidcryptex) üzerinden veya [Doğrudan APK](https://drive.google.com/file/d/1jn7Fz2jAHXPG7JlySVjEtEx3ZP9HB6SM/view?usp=drive_link) dosyasını indirin.
-2. Uygulamayı açın ve şifrelemek veya çözmek istediğiniz metni manuel olarak girin veya kameranız aracılığıyla tanıtın.
-3. "Şifrele" butonuna basarak metni şifreleyin veya "Çöz" butonuna basarak şifresi çözülmüş metni görüntüleyin.
+## Usage
 
-## Kullanım
+1. **Manual Text Encryption:**
+   - On the main screen of the app, enter the text you want to encrypt. You can also set a specific key value for the entered text; both the app and the key value will be necessary for decryption.
+   - Press the "Encrypt" button.
+   - You can copy or share the encrypted text.
 
-1. **Manuel Metin Şifreleme:**
-   - Uygulamanın ana ekranında şifrelemek istediğiniz metni girin, isterseniz girdiğiniz metin için özel bir anahtar değer belirleyebilirsiniz şifreyi çözmek için hem uygulama hemde anahtar değer gerekli olur.
-   - "Şifrele" butonuna basın.
-   - Şifrelenmiş metni kopyalayabilir veya paylaşabilirsiniz.
+2. **Manual Decryption:**
+   - Paste the text that needs to be decrypted on the main screen of the app and enter the key value if required.
+   - Press the "Decrypt" button.
+   - You can view and copy the decrypted text.
 
-2. **Manuel Şifre Çözme:**
-   - Şifresi çözülmesi gereken metni uygulamanın ana ekranına yapıştırın ve eğer varsa anahtar değeri girin.
-   - "Çöz" butonuna basın.
-   - Şifresi çözülmüş metni görüntüleyebilir ve kopyalayabilirsiniz.
+3. **Text Reading and Encryption via Camera:**
+   - Tap the camera button in the app to switch to text recognition mode and enter the key value if necessary.
+   - Point your camera at the text you want to encrypt and press the "Encrypt" button once the text is recognized.
+   - You can copy or share the encrypted text.
 
-3. **Kameradan Metin Okuma ve Şifreleme:**
-   - Uygulama içinde kamera butonuna basarak metin tanıma moduna geçin eğer varsa kullanmak istediğiniz anahtar değeri girin.
-   - Kameranızı şifrelemek istediğiniz metne yönlendirin ve metin tanıdığında "Şifrele" butonuna basın.
-   - Şifrelenmiş metni kopyalayabilir veya paylaşabilirsiniz.
+4. **Text Reading and Decryption via Camera:**
+   - Point your camera at the text that needs to be decrypted and press the "Decrypt" button once the text is recognized.
+   - You can view and copy the decrypted text.
 
-4. **Kameradan Metin Okuma ve Şifre Çözme:**
-   - Kameranızı şifresi çözülmesi gereken metne yönlendirin ve metin tanıdığında "Çöz" butonuna basın.
-   - Şifresi çözülmüş metni görüntüleyebilir ve kopyalayabilirsiniz.
+## Development Process
 
-## Geliştirme Süreci
+Encryptext has been developed using the Kotlin programming language and Jetpack Compose. The project follows the MVVM architectural structure and is optimized with modern Android development techniques and Google ML Kit integration.
 
-Encryptext, Kotlin programlama dili ve Jetpack Compose kullanılarak geliştirilmiştir. Proje, MVVM mimari yapısını takip etmekte olup, modern Android geliştirme teknikleri ve Google ML Kit entegrasyonu ile optimize edilmiştir.
+### Technologies Used
 
-### Kullanılan Teknolojiler
-
-- **Dil:** Kotlin
+- **Language:** Kotlin
 - **UI:** Jetpack Compose
-- **Mimari:** MVVM
-- **Şifreleme:** Shifting
-- **Metin Tanıma:** Google ML Kit
+- **Architecture:** MVVM
+- **Encryption:** Shifting
+- **Text Recognition:** Google ML Kit
 
-## Katkıda Bulunma
+## Contributing
 
-Bu projeye katkıda bulunmak isterseniz, lütfen [GitHub reposu](#) üzerinden bir pull request açın veya bir sorun bildirimi yapın.
+If you would like to contribute to this project, please open a pull request or report an issue via the [GitHub repository](#).
 
-## Lisans
+## License
 
-Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır. Ayrıntılar için `LICENSE` dosyasına bakabilirsiniz.
+This project is licensed under the [MIT License](LICENSE). Please refer to the `LICENSE` file for details.
 
-## İletişim
+## Contact
 
-Proje hakkında herhangi bir sorunuz varsa veya destek almak isterseniz, lütfen [erdemserhat.com](https://erdemserhat.com) üzerinden bana ulaşın.
+If you have any questions about the project or need support, please reach out to me via [erdemserhat.com](https://erdemserhat.com).
 
 ---
 
-Teşekkürler! Encryptext'i kullandığınız için teşekkür ederiz. Geri bildirimlerinizi bekliyoruz.
+Thank you! We appreciate your use of Encryptext. We look forward to your feedback.
