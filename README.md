@@ -1,6 +1,3 @@
-Here's the English translation of your text:
-
----
 
 # Encryptext: Text Encryptor
 
